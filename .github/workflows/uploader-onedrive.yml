@@ -21,4 +21,4 @@ jobs:
         file-path: 'Readme.md'
 
     - name: Get the output time
-      run: echo "upload result: ${{ steps.uploader.outputs.result }}"
+      run: echo "upload result -- ${{ steps.uploader.outputs.result }}"
