@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Upload to Onedrive
     steps:
-    - uses: actions/checkout@v2
+    - name: clone source
+      uses: actions/checkout@v2
+
     - name: uploader action step
       id: uploader
       uses: fbigun/actions/uploader-onedrive@master
