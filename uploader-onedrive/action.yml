@@ -1,0 +1,25 @@
+name: 'Uploader-onedrive'
+author: 'fbigun'
+description: 'upload file to onedrive'
+branding:
+  icon: 'package'
+  color: 'red'
+
+inputs:
+  file-path:
+    description: 'File action.yml'
+    required: true
+  auth:
+    description: 'Certification Information'
+    required: true
+
+outputs:
+  result:
+    description: 'File upload result'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.file-path }}
+    - ${{ inputs.auth }}
