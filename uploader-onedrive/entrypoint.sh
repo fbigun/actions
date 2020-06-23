@@ -2,9 +2,14 @@
 set -eo pipefail
 shopt -s nullglob
 
+if [ -z "$INPUT_LOCALPATH" ] && [ -z "$INPUT_AUTH" ]; then
+    echo 'Please set {{ LOCALPATH }} and {{ AUTH }} two parameter values, refer to Readme.md'
+    exit 1
+fi
+
 cat << EFO > /tmp/auth.json
 {
-  "RefreshToken": "$1",
+  "RefreshToken": "$INPUT_AUTH",
   "RefreshInterval": 1500,
   "ThreadNum": "2",
   "BlockSize": "10",
@@ -14,8 +19,13 @@ cat << EFO > /tmp/auth.json
 }
 EFO
 
-cat /tmp/auth.json
+OneDriveUploader -c /tmp/auth.json -s $INPUT_LOCALPATH -r $INPUT_REMOTEPATH > /dev/null 2>&1 || cmd_result=$?
+timepoint=$(date)
+rm -rf /tmp/auth.json
 
-result=$(OneDriveUploader -c /tmp/auth.json -s $2)
-time=$(date)
-echo "::set-output name=result::$time - $result"
+if [ -n "$cmd_result" ]; then
+    echo "$timepoint - File upload failed due to fatal reasons"
+    exit 1
+fi
+
+echo "$timepoint - The file or folder has been uploaded to Onedrive"
