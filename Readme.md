@@ -20,7 +20,7 @@
 ###  Example usage
 
 ```
-uses:actions/hello-world-docker-action@v1
+uses: fbigun/actions/uploader-onedrive@master
 with:
 - auth: ${{ secrets.ONEDRIVE_TOKEN }}
 - localpath: Readme.md
