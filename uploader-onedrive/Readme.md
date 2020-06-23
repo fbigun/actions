@@ -1,21 +1,31 @@
-# Hello world docker action
+# uploader-onedrive
 
-此操作将 "Hello World" 或 "Hello" + 要问候的人员的姓名打印到日志。
+此操作将文件上传到 OneDrive 云上保存。
 
 ## Inputs
 
-### `who-to-greet`
+### `auth`
 
-**必填** 要问候的人员的姓名。 默认值为 `"World"`。
+**必填参数** 命令 OneDriveUploader 认证后的 `RefreshToken` 值
 
-## Outputs
+> `OneDriveUploader -a 'url'` 运行成功后 `auth.json` 文件中的 `RefreshToken`
+> 建议将该值保存至 GitHub 控制台的 `secrets` 中。
 
-### `time`
+### `localpath`
 
-我们问候您的时间。
+**必填参数** 需要上传的文件或文件夹路径
+
+### `remotepath`
+
+**参数** OneDrive 云上的路径。默认在根目录上。
+
 
 ## Example usage
 
-使用：actions/hello-world-docker-action@v1
-及：
-  who-to-greet: 'Mona the Octocat'
+```
+uses:actions/hello-world-docker-action@v1
+with:
+- auth: ${{ secrets.ONEDRIVE_TOKEN }}
+- localpath: Readme.md
+- remotepath: "/test"
+```
