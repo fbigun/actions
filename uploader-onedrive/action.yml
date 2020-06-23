@@ -1,0 +1,22 @@
+name: "Uploader Onedrive"
+author: "fbigun"
+description: "upload file to onedrive"
+branding:
+  icon: "package"
+  color: "red"
+
+inputs:
+  localpath:
+    description: "The path of the file waiting to be uploaded"
+    required: true
+  remotepath:
+    description: "Path to remote server"
+    required: true
+    default: "/"
+  auth:
+    description: "Certification Information"
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"

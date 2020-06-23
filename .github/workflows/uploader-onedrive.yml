@@ -1,0 +1,23 @@
+name: "Uploader for Onedrive"
+
+on:
+  push:
+    paths:
+    - "uploader-onedrive/**"
+    - "!uploader-onedrive/Readme.md"
+    - ".github/workflows/uploader-onedrive.yml"
+
+jobs:
+  upload_to_onedrive:
+    runs-on: ubuntu-latest
+    name: Upload to Onedrive
+    steps:
+    - name: clone source
+      uses: actions/checkout@v2
+
+    - name: uploader action step
+      id: uploader
+      uses: fbigun/actions/uploader-onedrive@master
+      with:
+        auth: "${{ secrets.ONEDRIVE_TOKEN }}"
+        localpath: "Readme.md"
